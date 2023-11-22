@@ -1,6 +1,7 @@
 package com.medMate.medMate.medications.data.models;
 
 import com.medMate.medMate.medications.enums.MedicationFrequency;
+import com.medMate.medMate.medications.enums.MedicationRequirement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ public class MedicationSchedule {
     private Medication medication;
     @Enumerated(value = EnumType.STRING)
     private MedicationFrequency frequency;
+    @Enumerated(value = EnumType.STRING)
+    private MedicationRequirement medicationRequirement;
     private Integer dosage;
     private LocalDate startDate;
     private LocalDate endDate;

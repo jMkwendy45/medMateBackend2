@@ -15,6 +15,9 @@ public class PatientProfile {
     private Long id;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Medication> medications;
-    private String phoneNumber;
+    @OneToOne
+    private User user;
+    @OneToMany
+    List<HealthPractisonerProfile>healthPractisoner;
 }
    

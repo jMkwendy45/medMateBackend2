@@ -20,6 +20,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
+    private String firstName;
+    private String lastName;
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role;

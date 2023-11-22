@@ -20,8 +20,4 @@ public class Medication {
     private String medicationName;
     private String medicationForm;
     private String medicationPurpose;
-    @ManyToOne
-    @JoinColumn(name = "patient_profile_id")
-    private PatientProfile patientProfile;
-
 }
