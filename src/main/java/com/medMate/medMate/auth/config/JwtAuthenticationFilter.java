@@ -1,4 +1,4 @@
-package com.medMate.medMate.security.config;
+package com.medMate.medMate.auth.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -4,20 +4,16 @@ import com.medMate.medMate.medications.data.models.Medication;
 import com.medMate.medMate.medications.data.models.MedicationSchedule;
 import com.medMate.medMate.medications.data.repositories.MedicationRepository;
 import com.medMate.medMate.medications.data.repositories.MedicationScheduleRepository;
-import com.medMate.medMate.medications.dto.MedicationRequest;
-import com.medMate.medMate.medications.enums.MedicationFrequency;
-import com.medMate.medMate.medications.enums.MedicationRequirement;
+import com.medMate.medMate.medications.dto.request.CreateMedicationRequest;
+import com.medMate.medMate.medications.dto.request.MedicationRequest;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
 import com.medMate.medMate.user.data.models.PatientProfile;
-import com.medMate.medMate.user.data.repositories.PatientProfileRepository;
 import com.medMate.medMate.user.services.PatientProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 import static com.medMate.medMate.medications.medicationexception.ExceptionMessage.MEDICATION_NOT_FOUND;
@@ -30,9 +26,9 @@ public class MedicationImplementaion  implements MedicationService{
 
     private final PatientProfileService patientProfileService;
     @Override
-    public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long id) {
+    public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long PatientId) {
         Medication foundMedication = findMedication(medicationId);
-         PatientProfile foundPatientProfile = patientProfileService.findPatientProfile(id);
+         PatientProfile foundPatientProfile = patientProfileService.findPatientProfile(PatientId);
         MedicationSchedule medicationSchedule = new MedicationSchedule();
         medicationSchedule.setDosage(medicationRequest.getDosage());
         medicationSchedule.setFrequency(medicationRequest.getMedicationFrequency());
@@ -46,14 +42,13 @@ public class MedicationImplementaion  implements MedicationService{
         return foundMedication;
     }
     @Override
-    public Medication createMedication(MedicationRequest medicationRequest) {
+    public Medication createMedication(CreateMedicationRequest medicationRequest) {
         Medication medication = new Medication();
-        medication.setMedicationName(medication.getMedicationName());
-        medication.setMedicationForm(medication.getMedicationForm());
-        medication.setMedicationPurpose(medication.getMedicationPurpose());
+        medication.setMedicationName(medicationRequest.getMedicationName());
+        medication.setMedicationForm(medicationRequest.getMedicationForm());
+        medication.setMedicationPurpose(medicationRequest.getMedicationPurpose());
         return  medicationRepository.save(medication);
     }
-
     @Override
     public List<Medication> findAllMedicatons() {
         return medicationRepository.findAll();

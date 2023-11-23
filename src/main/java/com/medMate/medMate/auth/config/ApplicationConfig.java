@@ -1,4 +1,4 @@
-package com.medMate.medMate.security.config;
+package com.medMate.medMate.auth.config;
 
 import com.medMate.medMate.auth.data.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
@@ -38,6 +41,11 @@ public class ApplicationConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+        return new MvcRequestMatcher.Builder(introspector);
     }
 }
 

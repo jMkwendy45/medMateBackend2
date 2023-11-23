@@ -4,7 +4,7 @@ import com.medMate.medMate.auth.dto.request.AuthenticationRequest;
 import com.medMate.medMate.auth.dto.response.AuthenticationResponse;
 import com.medMate.medMate.auth.exception.AlreadyExistException;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
-import com.medMate.medMate.security.config.JwtService;
+import com.medMate.medMate.auth.config.JwtService;
 import com.medMate.medMate.auth.dto.User;
 import com.medMate.medMate.auth.data.repositories.UserRepository;
 import com.medMate.medMate.user.dto.request.RegisterRequest;

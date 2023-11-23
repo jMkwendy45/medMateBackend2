@@ -1,33 +1,32 @@
 package com.medMate.medMate.medicationTest;
 
-import com.medMate.medMate.medications.data.models.Medication;
-import com.medMate.medMate.medications.data.repositories.MedicationRepository;
-import com.medMate.medMate.medications.dto.MedicationRequest;
+import com.medMate.medMate.medications.dto.request.CreateMedicationRequest;
+import com.medMate.medMate.medications.dto.request.MedicationRequest;
+import com.medMate.medMate.medications.enums.MedicationFrequency;
+import com.medMate.medMate.medications.enums.MedicationRequirement;
 import com.medMate.medMate.medications.service.MedicationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 public class MedicationTest {
     @Autowired
     MedicationService medicationService;
-    @Autowired
-    private  MedicationRepository medicationRepository;
+
     @Test
     public void testToCreateAMedication(){
-        MedicationRequest medicationRequest = new MedicationRequest();
-//        medicationService.createMedication()
-        populate();
-
     }
-    private void populate(){
+    @Test
+    public void populateAndTestToCreateMedication(){
         List <String> medicationName = new ArrayList<>(Arrays.asList("Paracetamol","Armethem","Aspirin"));
 
         List <String> medicationForm = new ArrayList<>(){{
@@ -42,17 +41,26 @@ public class MedicationTest {
         }};
         Random random = new Random();
         for (int i = 0; i < 50; i++) {
-            Medication medication = new Medication();
+            CreateMedicationRequest medication = new CreateMedicationRequest();
             int index = random.nextInt(3);
 
             medication.setMedicationName(medicationName.get(index));
             medication.setMedicationForm(medicationForm.get(index));
             medication.setMedicationPurpose(medicationPurpose.get(index));
-
-            medicationRepository.save(medication);
+             medicationService.createMedication(medication);
+            assertNotNull(medication);
         }
 
-
+    }
+    @Test
+    public void testToAddMedication(){
+        MedicationRequest medicationRequest = new MedicationRequest();
+        medicationRequest.setDosage(8);
+        medicationRequest.setStartDate(LocalDate.now());
+        medicationRequest.setEndDate(LocalDate.now());
+        medicationRequest.setMedicationFrequency(MedicationFrequency.ONCE_A_DAY);
+        medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
+//        medicationService.addMedications(7,medicationRequest,)
     }
 
     }

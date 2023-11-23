@@ -1,4 +1,4 @@
-package com.medMate.medMate.medications.dto;
+package com.medMate.medMate.medications.dto.request;
 
 import com.medMate.medMate.medications.enums.MedicationFrequency;
 import com.medMate.medMate.medications.enums.MedicationRequirement;
