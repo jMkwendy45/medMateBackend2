@@ -24,4 +24,5 @@ public class MedicationRequest {
     @Enumerated(EnumType.STRING)
     private MedicationRequirement medicationRequirement;
 
+
 }

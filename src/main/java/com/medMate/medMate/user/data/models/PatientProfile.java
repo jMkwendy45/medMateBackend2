@@ -1,5 +1,6 @@
 package com.medMate.medMate.user.data.models;
 
+import com.medMate.medMate.auth.dto.User;
 import com.medMate.medMate.medications.data.models.Medication;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +14,7 @@ public class PatientProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany()
     private List<Medication> medications;
     @OneToOne
     private User user;

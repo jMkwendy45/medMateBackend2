@@ -1,7 +1,5 @@
 package com.medMate.medMate.medications.data.models;
 
-import com.medMate.medMate.user.data.models.PatientProfile;
-import com.medMate.medMate.user.data.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
