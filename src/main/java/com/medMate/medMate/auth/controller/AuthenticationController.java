@@ -6,7 +6,7 @@ import com.medMate.medMate.auth.dto.response.AuthenticationResponse;
 import com.medMate.medMate.auth.dto.response.BaseResponse;
 import com.medMate.medMate.auth.exception.AlreadyExistException;
 import com.medMate.medMate.auth.service.AuthenticationService;
-import com.medMate.medMate.auth.dto.User;
+import com.medMate.medMate.user.data.models.User;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
 import com.medMate.medMate.user.dto.request.RegisterRequest;
 import com.medMate.medMate.user.dto.response.RegisterUserResponse;

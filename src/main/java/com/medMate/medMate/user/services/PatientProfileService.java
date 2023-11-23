@@ -1,12 +1,14 @@
 package com.medMate.medMate.user.services;
 
+import com.medMate.medMate.user.data.models.User;
 import com.medMate.medMate.user.data.models.PatientProfile;
-import com.medMate.medMate.user.data.repositories.PatientProfileRepository;
 
 public interface PatientProfileService {
-
-
-
-    PatientProfile findPatientProfile(Long id);
+    PatientProfile findPatientProfileById(Long id);
+    PatientProfile findPatientProfileByUserId(Long userId);
     PatientProfile saveProfile(PatientProfile patientProfile);
+
+    PatientProfile createPatientProfile(User user);
+
+
 }

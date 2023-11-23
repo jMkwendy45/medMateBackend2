@@ -1,6 +1,6 @@
 package com.medMate.medMate.auth.data.repositories;
 
-import com.medMate.medMate.auth.dto.User;
+import com.medMate.medMate.user.data.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

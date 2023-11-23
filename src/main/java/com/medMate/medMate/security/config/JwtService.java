@@ -1,4 +1,4 @@
-package com.medMate.medMate.auth.config;
+package com.medMate.medMate.security.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

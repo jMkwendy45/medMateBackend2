@@ -1,4 +1,4 @@
-package com.medMate.medMate.auth.config;
+package com.medMate.medMate.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-
-import static org.springframework.security.config.http.MatcherType.mvc;
 
 @Configuration
 @EnableWebSecurity

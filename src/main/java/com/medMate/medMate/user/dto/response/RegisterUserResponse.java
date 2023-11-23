@@ -1,7 +1,7 @@
 package com.medMate.medMate.user.dto.response;
 
 import com.medMate.medMate.auth.dto.response.BaseResponse;
-import com.medMate.medMate.auth.dto.User;
+import com.medMate.medMate.user.data.models.User;
 
 import java.time.LocalDateTime;
 

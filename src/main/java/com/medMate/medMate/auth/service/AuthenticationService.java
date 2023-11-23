@@ -4,11 +4,12 @@ import com.medMate.medMate.auth.dto.request.AuthenticationRequest;
 import com.medMate.medMate.auth.dto.response.AuthenticationResponse;
 import com.medMate.medMate.auth.exception.AlreadyExistException;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
-import com.medMate.medMate.auth.config.JwtService;
-import com.medMate.medMate.auth.dto.User;
+import com.medMate.medMate.security.config.JwtService;
+import com.medMate.medMate.user.data.models.User;
 import com.medMate.medMate.auth.data.repositories.UserRepository;
 import com.medMate.medMate.user.dto.request.RegisterRequest;
 import com.medMate.medMate.user.enums.Role;
+import com.medMate.medMate.user.services.PatientProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +29,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
+    private final PatientProfileService patientProfileService;
     public User register(RegisterRequest request){
         Optional<User> founderUser = userRepository.findByEmail(request.getEmail());
         if (founderUser.isPresent()){
@@ -35,13 +38,15 @@ public class AuthenticationService {
         }
         else {
             var user = User.builder()
-                    .firstName(request.getFirstname())
-                    .lastName(request.getLastname())
+//                    .firstName(request.getFirstname())
+//                    .lastName(request.getLastname())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .email(request.getEmail())
                     .role(Role.PATIENT)
                     .build();
-            return  userRepository.save(user);
+            userRepository.save(user);
+            patientProfileService.createPatientProfile(user);
+            return user;
         }
 
 //    var jwtToken = jwtService.generateToken(user);

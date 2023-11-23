@@ -1,4 +1,4 @@
-package com.medMate.medMate.auth.dto;
+package com.medMate.medMate.user.data.models;
 
 import com.medMate.medMate.user.enums.Role;
 import com.medMate.medMate.medications.data.models.Medication;

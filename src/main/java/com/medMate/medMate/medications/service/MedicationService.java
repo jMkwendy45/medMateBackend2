@@ -7,7 +7,7 @@ import com.medMate.medMate.medications.dto.request.MedicationRequest;
 import java.util.List;
 
 public interface MedicationService {
-   Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long id);
+   Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long userId);
    Medication createMedication(CreateMedicationRequest medicationRequest);
 
    List<Medication>findAllMedicatons();

@@ -26,9 +26,11 @@ public class MedicationImplementaion  implements MedicationService{
 
     private final PatientProfileService patientProfileService;
     @Override
-    public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long PatientId) {
+    public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long userId) {
         Medication foundMedication = findMedication(medicationId);
-         PatientProfile foundPatientProfile = patientProfileService.findPatientProfile(PatientId);
+
+
+         PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
         MedicationSchedule medicationSchedule = new MedicationSchedule();
         medicationSchedule.setDosage(medicationRequest.getDosage());
         medicationSchedule.setFrequency(medicationRequest.getMedicationFrequency());
@@ -37,9 +39,16 @@ public class MedicationImplementaion  implements MedicationService{
         medicationSchedule.setMedicationRequirement(medicationRequest.getMedicationRequirement());
         medicationSchedule.setMedication(foundMedication);
         medicationScheduleRepository.save(medicationSchedule);
-        foundPatientProfile.setMedications(Collections.singletonList(foundMedication));
+        foundPatientProfile.setMedications(addMedication(foundMedication, foundPatientProfile));
         patientProfileService.saveProfile(foundPatientProfile);
         return foundMedication;
+    }
+
+    private List<Medication> addMedication(Medication medication, PatientProfile patientProfile){
+        List<Medication> medications = patientProfile.getMedications();
+        medications.add(medication);
+        return medications;
+
     }
     @Override
     public Medication createMedication(CreateMedicationRequest medicationRequest) {

@@ -1,4 +1,4 @@
-package com.medMate.medMate.auth.config;
+package com.medMate.medMate.security.config;
 
 import com.medMate.medMate.auth.data.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
