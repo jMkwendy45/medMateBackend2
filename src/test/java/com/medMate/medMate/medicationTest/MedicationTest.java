@@ -60,7 +60,7 @@ public class MedicationTest {
         medicationRequest.setEndDate(LocalDate.now());
         medicationRequest.setMedicationFrequency(MedicationFrequency.ONCE_A_DAY);
         medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
-       medicationService.addMedications(9L,medicationRequest,2L);
+       medicationService.addMedications(10L,medicationRequest,2L);
     }
 
     }

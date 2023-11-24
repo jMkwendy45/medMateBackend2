@@ -18,4 +18,7 @@ public class Medication {
     private String medicationName;
     private String medicationForm;
     private String medicationPurpose;
+    @OneToOne
+    private MedicationSchedule medicationSchedule;
+
 }

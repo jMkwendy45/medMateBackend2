@@ -15,6 +15,5 @@ public interface MedicationService {
 
    Medication findMedication(Long id);
 
-
-
+   List<Medication>getMedicationByUserId(Long userId);
 }

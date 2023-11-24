@@ -28,8 +28,6 @@ public class MedicationImplementaion  implements MedicationService{
     @Override
     public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long userId) {
         Medication foundMedication = findMedication(medicationId);
-
-
          PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
         MedicationSchedule medicationSchedule = new MedicationSchedule();
         medicationSchedule.setDosage(medicationRequest.getDosage());
@@ -39,16 +37,17 @@ public class MedicationImplementaion  implements MedicationService{
         medicationSchedule.setMedicationRequirement(medicationRequest.getMedicationRequirement());
         medicationSchedule.setMedication(foundMedication);
         medicationScheduleRepository.save(medicationSchedule);
+        foundMedication.setMedicationSchedule(medicationSchedule);
+        medicationRepository.save(foundMedication);
+
         foundPatientProfile.setMedications(addMedication(foundMedication, foundPatientProfile));
         patientProfileService.saveProfile(foundPatientProfile);
         return foundMedication;
     }
-
     private List<Medication> addMedication(Medication medication, PatientProfile patientProfile){
         List<Medication> medications = patientProfile.getMedications();
         medications.add(medication);
         return medications;
-
     }
     @Override
     public Medication createMedication(CreateMedicationRequest medicationRequest) {
@@ -67,6 +66,11 @@ public class MedicationImplementaion  implements MedicationService{
       Medication foundMedication =  medicationRepository.findById(id)
               .orElseThrow(()-> new NotFoundException(MEDICATION_NOT_FOUND.name()));
       return foundMedication;
+    }
+    @Override
+    public List<Medication> getMedicationByUserId(Long userId) {
+     PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
+        return  foundPatientProfile.getMedications();
     }
 
 

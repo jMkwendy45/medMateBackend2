@@ -26,4 +26,5 @@ public class MedicationSchedule {
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalTime firstDoseTime;
+    private Boolean isTaken;
 }

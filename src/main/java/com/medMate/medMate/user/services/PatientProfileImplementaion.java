@@ -29,7 +29,6 @@ public class PatientProfileImplementaion implements PatientProfileService{
     @Override
     public PatientProfile findPatientProfileByUserId(Long userId) {
         Optional<User> user = userRepository.findById(userId);
-
         return patientProfileRepository.findPatientProfileByUser(user.get())
                 .orElseThrow(()-> new NotFoundException(PATIENT_NOT_FOUND.name()));
 
