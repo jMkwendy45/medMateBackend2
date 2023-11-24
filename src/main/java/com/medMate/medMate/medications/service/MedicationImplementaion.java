@@ -9,11 +9,16 @@ import com.medMate.medMate.medications.dto.request.MedicationRequest;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
 import com.medMate.medMate.user.data.models.PatientProfile;
 import com.medMate.medMate.user.services.PatientProfileService;
+import jakarta.persistence.Table;
+import jdk.jfr.Timestamp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.medMate.medMate.medications.medicationexception.ExceptionMessage.MEDICATION_NOT_FOUND;
@@ -27,26 +32,40 @@ public class MedicationImplementaion  implements MedicationService{
     private final PatientProfileService patientProfileService;
     @Override
     public Medication addMedications(Long medicationId,MedicationRequest medicationRequest,Long userId) {
+        System.out.println(medicationId);
+        System.out.println(userId);
         Medication foundMedication = findMedication(medicationId);
          PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
         MedicationSchedule medicationSchedule = new MedicationSchedule();
         medicationSchedule.setDosage(medicationRequest.getDosage());
         medicationSchedule.setFrequency(medicationRequest.getMedicationFrequency());
-        medicationSchedule.setStartDate(LocalDate.from(LocalDateTime.now()));
-        medicationSchedule.setEndDate(LocalDate.from(LocalDateTime.now()));
+         medicationSchedule.setFirstDoseTime(medicationRequest.getFirstDoseTime());
+        medicationSchedule.setStartDate(medicationRequest.getStartDate());
+        medicationSchedule.setEndDate(medicationRequest.getEndDate());
+
+
         medicationSchedule.setMedicationRequirement(medicationRequest.getMedicationRequirement());
         medicationSchedule.setMedication(foundMedication);
         medicationScheduleRepository.save(medicationSchedule);
         foundMedication.setMedicationSchedule(medicationSchedule);
         medicationRepository.save(foundMedication);
 
-        foundPatientProfile.setMedications(addMedication(foundMedication, foundPatientProfile));
-        patientProfileService.saveProfile(foundPatientProfile);
-        return foundMedication;
+       foundPatientProfile.setMedications(addMedication(foundMedication, foundPatientProfile));
+        System.out.println(foundMedication);
+        return  foundMedication;
+
     }
     private List<Medication> addMedication(Medication medication, PatientProfile patientProfile){
         List<Medication> medications = patientProfile.getMedications();
+//        for(int index = 1; index <medications.size(); index++){
+//            if (Objects.equals(medications.get(index).getId(), medication.getId())){
+//                throw new NotFoundException("you have added this medication already");
+//            }
+//            else {
+//            }
+        //}
         medications.add(medication);
+
         return medications;
     }
     @Override

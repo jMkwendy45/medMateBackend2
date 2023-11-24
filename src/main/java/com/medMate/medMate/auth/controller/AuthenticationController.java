@@ -26,8 +26,8 @@ import java.time.LocalDateTime;
 public class AuthenticationController {
     private final AuthenticationService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    @PostMapping("/registerUser")
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
         try {
             User user = service.register(request);
             return new ResponseEntity<>(
@@ -46,8 +46,10 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
+        System.out.println("eme");
         try {
             AuthenticationResponse response = service.authenticate(request);
+            System.out.println(response);
             return new ResponseEntity<>(
                     new AuthResponse(true, HttpStatus.OK.value(), "successful",
                             LocalDateTime.now(), response)

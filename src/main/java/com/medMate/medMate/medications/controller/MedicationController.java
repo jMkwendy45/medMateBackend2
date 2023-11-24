@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/medications")
@@ -22,7 +23,7 @@ import java.util.List;
 public class MedicationController {
     private  final MedicationService medicationService;
 
-    @PostMapping("/register")
+    @PostMapping("/createMedications")
     public ResponseEntity<BaseResponse> createMedications(@RequestBody CreateMedicationRequest medicationRequest){
         Medication response = medicationService.createMedication(medicationRequest);
         return new ResponseEntity<>(
@@ -30,11 +31,11 @@ public class MedicationController {
                         LocalDateTime.now(), response)
                 ,HttpStatus.CREATED);
     }
-    @PostMapping("/{medicationId}/{patientId}")
+    @PostMapping("/addMedication/{medicationId}/{patientId}/")
     public ResponseEntity<Medication> addMedication(
-            @PathVariable Long medicationId,
+             @PathVariable Long medicationId,
             @RequestBody MedicationRequest medicationRequest,
-            @PathVariable Long patientId) {
+             @PathVariable Long patientId) {
         try {
             Medication addedMedication = medicationService.addMedications(medicationId, medicationRequest, patientId);
             return new ResponseEntity<>(addedMedication, HttpStatus.CREATED);

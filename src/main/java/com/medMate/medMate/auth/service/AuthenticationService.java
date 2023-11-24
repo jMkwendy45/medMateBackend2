@@ -29,8 +29,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
     private final PatientProfileService patientProfileService;
+
     public User register(RegisterRequest request){
         Optional<User> founderUser = userRepository.findByEmail(request.getEmail());
         if (founderUser.isPresent()){
@@ -38,8 +38,8 @@ public class AuthenticationService {
         }
         else {
             var user = User.builder()
-//                    .firstName(request.getFirstname())
-//                    .lastName(request.getLastname())
+                    .firstName(request.getFirstname())
+                    .lastName(request.getLastname())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .email(request.getEmail())
                     .role(Role.PATIENT)
@@ -68,6 +68,8 @@ public class AuthenticationService {
             var jwtToken = jwtService.generateToken((UserDetails) user.get());
             return AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .userId(user.get().getId())
+                    .email(user.get().getEmail())
                     .build();
         }
 

@@ -56,8 +56,8 @@ public class MedicationTest {
     public void testToAddMedication(){
         MedicationRequest medicationRequest = new MedicationRequest();
         medicationRequest.setDosage(8);
-        medicationRequest.setStartDate(LocalDate.now());
-        medicationRequest.setEndDate(LocalDate.now());
+        medicationRequest.setStartDate(String.valueOf(LocalDate.now()));
+        medicationRequest.setEndDate(String.valueOf(LocalDate.now()));
         medicationRequest.setMedicationFrequency(MedicationFrequency.ONCE_A_DAY);
         medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
        medicationService.addMedications(10L,medicationRequest,2L);

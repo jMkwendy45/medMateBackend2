@@ -1,5 +1,6 @@
 package com.medMate.medMate.medications.data.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,8 @@ public class Medication {
     private String medicationName;
     private String medicationForm;
     private String medicationPurpose;
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
     private MedicationSchedule medicationSchedule;
 
 }
