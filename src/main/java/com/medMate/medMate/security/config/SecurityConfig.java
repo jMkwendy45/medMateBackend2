@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(mvc.pattern("/api/v1/auth/**")).permitAll()
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
                 .authenticationProvider(authenticationProvider)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
