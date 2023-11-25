@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api/v1/medications")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class MedicationController {
     private  final MedicationService medicationService;
 

@@ -1,6 +1,7 @@
 package com.medMate.medMate.auth.service;
 
 import com.medMate.medMate.auth.dto.request.AuthenticationRequest;
+import com.medMate.medMate.auth.dto.request.RegisterDoctorRequest;
 import com.medMate.medMate.auth.dto.response.AuthenticationResponse;
 import com.medMate.medMate.auth.exception.AlreadyExistException;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
@@ -53,6 +54,22 @@ public class AuthenticationService {
 //        return AuthenticationResponse.builder()
 //                .token(jwtToken)
 //                .build();
+    }
+    public User registerDoctor(RegisterDoctorRequest request){
+        Optional<User> founderUser = userRepository.findByEmail(request.getEmail());
+        if (founderUser.isPresent()){
+            throw new AlreadyExistException(EMAIL_ALREADY_EXIST.name());
+        }
+        else {
+            var user = User.builder()
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .email(request.getEmail())
+                    .role(Role.MEDICAL_PRACTITIONER)
+                    .build();
+            userRepository.save(user);
+            patientProfileService.createPatientProfile(user);
+            return user;
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

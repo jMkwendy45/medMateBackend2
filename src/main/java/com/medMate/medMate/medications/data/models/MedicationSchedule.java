@@ -13,6 +13,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -23,15 +25,15 @@ public class MedicationSchedule {
     @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
+
     @Enumerated(value = EnumType.STRING)
     private MedicationFrequency frequency;
-    @Enumerated(value = EnumType.STRING)
-    private MedicationRequirement medicationRequirement;
     private Integer dosage;
     private String startDate;
     private String endDate;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss.SSS")
-//    @JsonDeserialize(using = LocalTimeDeserializer.class)
-    private String firstDoseTime;
-    private Boolean isTaken;
+    @CollectionTable(name = "dosage_times", joinColumns = @JoinColumn(name = "medication_schedule_id"))
+    @Column(name = "dosage_time")
+    @OneToMany
+    private List<MedicationDosageTime> dosageTimes;
+
 }

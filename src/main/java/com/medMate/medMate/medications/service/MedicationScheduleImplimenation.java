@@ -40,7 +40,7 @@ public class MedicationScheduleImplimenation implements MedicationScheduleServic
         for (int i = 0; i <patientsMedications.size() ; i++) {
                  if (patientsMedications.get(i).equals(medicationId)){
                      medicationSchedule  =  patientsMedications.get(i).getMedicationSchedule();
-                  medicationSchedule.setIsTaken(true);
+//                  medicationSchedule.setIsTaken(true);
                   medicationScheduleRepository.save(medicationSchedule);
                  }
 

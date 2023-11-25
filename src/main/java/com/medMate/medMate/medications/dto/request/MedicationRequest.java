@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.medMate.medMate.medications.enums.MedicationFrequency;
 import com.medMate.medMate.medications.enums.MedicationRequirement;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,9 +23,13 @@ public class MedicationRequest {
     private Integer dosage;
     private String startDate;
     private String endDate;
+    @ElementCollection
+    @CollectionTable(name = "dosage_times", joinColumns = @JoinColumn(name = "medication_schedule_id"))
+    @Column(name = "dosage_time")
+    private List<LocalTime>dosageTimes;
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss.SSS")
 //    @JsonDeserialize(using = LocalTimeDeserializer.class)
-    private String firstDoseTime;
+//    private String firstDoseTime;
     @Enumerated(EnumType.STRING)
     private MedicationFrequency medicationFrequency;
     @Enumerated(EnumType.STRING)
