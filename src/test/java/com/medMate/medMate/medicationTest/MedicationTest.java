@@ -55,11 +55,11 @@ public class MedicationTest {
     @Test
     public void testToAddMedication(){
         MedicationRequest medicationRequest = new MedicationRequest();
-        medicationRequest.setDosage(8);
+//        medicationRequest.setDosage(8);
         medicationRequest.setStartDate(String.valueOf(LocalDate.now()));
         medicationRequest.setEndDate(String.valueOf(LocalDate.now()));
         medicationRequest.setMedicationFrequency(MedicationFrequency.ONCE_A_DAY);
-        medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
+//        medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
        medicationService.addMedications(10L,medicationRequest,2L);
     }
 
