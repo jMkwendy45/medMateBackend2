@@ -25,15 +25,13 @@ public class MedicationSchedule {
     @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
-
     @Enumerated(value = EnumType.STRING)
     private MedicationFrequency frequency;
-    private Integer dosage;
     private String startDate;
     private String endDate;
     @CollectionTable(name = "dosage_times", joinColumns = @JoinColumn(name = "medication_schedule_id"))
     @Column(name = "dosage_time")
-    @OneToMany
+    @OneToMany()
     private List<MedicationDosageTime> dosageTimes;
 
 }

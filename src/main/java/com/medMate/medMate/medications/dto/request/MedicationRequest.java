@@ -20,20 +20,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicationRequest {
-    private Integer dosage;
     private String startDate;
     private String endDate;
-    @ElementCollection
-    @CollectionTable(name = "dosage_times", joinColumns = @JoinColumn(name = "medication_schedule_id"))
-    @Column(name = "dosage_time")
-    private List<LocalTime>dosageTimes;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss.SSS")
-//    @JsonDeserialize(using = LocalTimeDeserializer.class)
-//    private String firstDoseTime;
+    private List<MedicationDosageRequest>dosageTimes;
     @Enumerated(EnumType.STRING)
     private MedicationFrequency medicationFrequency;
-    @Enumerated(EnumType.STRING)
-    private MedicationRequirement medicationRequirement;
+
 
 
 }

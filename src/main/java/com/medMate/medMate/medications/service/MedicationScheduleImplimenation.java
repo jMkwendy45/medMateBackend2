@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
@@ -21,14 +20,14 @@ public class MedicationScheduleImplimenation implements MedicationScheduleServic
 
     @Override
     public List<MedicationSchedule> usersSchedules(Long userId) {
-        List<MedicationSchedule> newList = new ArrayList<>();
+//        List<MedicationSchedule> newList = new ArrayList<>();
          PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
-     List<Medication>patientsMedications = foundPatientProfile.getMedications();
-        for (int i = 0; i <=patientsMedications.size() ; i++) {
-         MedicationSchedule medicationSchedule = patientsMedications.get(i).getMedicationSchedule();
-            newList.add(medicationSchedule);
-        }
-        return newList;
+//     List<Medication>patientsMedications = foundPatientProfile.getMedications();
+//        for (int i = 0; i <=patientsMedications.size() ; i++) {
+//         MedicationSchedule medicationSchedule = patientsMedications.get(i).getMedicationSchedule();
+//            newList.add(medicationSchedule);
+//        }
+        return foundPatientProfile.getMedicationSchedules();
 
     }
 
@@ -39,7 +38,7 @@ public class MedicationScheduleImplimenation implements MedicationScheduleServic
         MedicationSchedule medicationSchedule= null;
         for (int i = 0; i <patientsMedications.size() ; i++) {
                  if (patientsMedications.get(i).equals(medicationId)){
-                     medicationSchedule  =  patientsMedications.get(i).getMedicationSchedule();
+//                     medicationSchedule  =  patientsMedications.get(i).getMedicationSchedule();
 //                  medicationSchedule.setIsTaken(true);
                   medicationScheduleRepository.save(medicationSchedule);
                  }

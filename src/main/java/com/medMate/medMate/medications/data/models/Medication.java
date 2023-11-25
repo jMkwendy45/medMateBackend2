@@ -19,8 +19,5 @@ public class Medication {
     private String medicationName;
     private String medicationForm;
     private String medicationPurpose;
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
-    private MedicationSchedule medicationSchedule;
 
 }

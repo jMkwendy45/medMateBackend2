@@ -11,7 +11,6 @@ import lombok.Setter;
 public class MedicationDosageRequest {
     private String dosageTime;
     private String  amountOfPill;
-    private Boolean isTaken;
     @Enumerated(value = EnumType.STRING)
     private MedicationRequirement medicationRequirement;
 }

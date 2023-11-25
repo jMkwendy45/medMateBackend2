@@ -2,10 +2,12 @@ package com.medMate.medMate.medications.controller;
 
 import com.medMate.medMate.auth.dto.response.BaseResponse;
 import com.medMate.medMate.medications.data.models.Medication;
+import com.medMate.medMate.medications.data.models.MedicationSchedule;
 import com.medMate.medMate.medications.dto.request.CreateMedicationRequest;
 import com.medMate.medMate.medications.dto.request.MedicationRequest;
 import com.medMate.medMate.medications.dto.response.CreateMedicationResponse;
 import com.medMate.medMate.medications.medicationexception.NotFoundException;
+import com.medMate.medMate.medications.service.MedicationScheduleService;
 import com.medMate.medMate.medications.service.MedicationService;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.NotFound;
@@ -23,6 +25,7 @@ import java.util.NoSuchElementException;
 @CrossOrigin("*")
 public class MedicationController {
     private  final MedicationService medicationService;
+    private  final MedicationScheduleService medicationScheduleService;
 
     @PostMapping("/createMedications")
     public ResponseEntity<BaseResponse> createMedications(@RequestBody CreateMedicationRequest medicationRequest){
@@ -33,23 +36,28 @@ public class MedicationController {
                 ,HttpStatus.CREATED);
     }
     @PostMapping("/addMedication/{medicationId}/{patientId}/")
-    public ResponseEntity<Medication> addMedication(
+    public ResponseEntity<MedicationSchedule> addMedication(
              @PathVariable Long medicationId,
             @RequestBody MedicationRequest medicationRequest,
              @PathVariable Long patientId) {
         try {
-            Medication addedMedication = medicationService.addMedications(medicationId, medicationRequest, patientId);
+            MedicationSchedule addedMedication = medicationService.addMedications(medicationId, medicationRequest, patientId);
             return new ResponseEntity<>(addedMedication, HttpStatus.CREATED);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping
+       @GetMapping
         public ResponseEntity<List<Medication>> getAllMedications() {
             List<Medication> medications = medicationService.findAllMedicatons();
             return new ResponseEntity<>(medications, HttpStatus.OK);
         }
 
+    @GetMapping("schedule/{userId}")
+    public ResponseEntity<List<MedicationSchedule>> getAllUserMedication(@PathVariable Long userId) {
+        List<MedicationSchedule> medications = medicationScheduleService.usersSchedules(userId);
+        return new ResponseEntity<>(medications, HttpStatus.OK);
+    }
         @GetMapping("/{medicationId}")
         public ResponseEntity<Medication> getMedicationById(@PathVariable Long medicationId) {
             try {

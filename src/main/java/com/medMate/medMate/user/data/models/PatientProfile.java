@@ -1,6 +1,7 @@
 package com.medMate.medMate.user.data.models;
 
 import com.medMate.medMate.medications.data.models.Medication;
+import com.medMate.medMate.medications.data.models.MedicationSchedule;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,8 @@ public class PatientProfile {
     private List<Medication> medications;
     @OneToOne
     private User user;
+    @OneToMany
+    List<MedicationSchedule>medicationSchedules;
     @OneToMany
     List<HealthPractisonerProfile>healthPractisoner;
 }
