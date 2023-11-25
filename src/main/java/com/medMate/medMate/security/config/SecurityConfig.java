@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig implements WebMvcConfigurer {
+public class SecurityConfig  {
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -39,8 +39,5 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 .build();
     }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/webjars/**", "/images/**", "/css/**", "/js/**").addResourceLocations("classpath:/META-INF/resources/webjars/", "classpath:/static/images/", "classpath:/static/css/", "classpath:/static/js/");
-    }
+
 }
