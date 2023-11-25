@@ -21,12 +21,13 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@CrossOrigin("/*")
+@CrossOrigin("/**")
 public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/registerUser")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
+        System.out.println("hi");
         try {
             User user = service.register(request);
             return new ResponseEntity<>(
