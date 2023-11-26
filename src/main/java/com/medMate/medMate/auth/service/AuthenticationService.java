@@ -87,6 +87,8 @@ public class AuthenticationService {
                     .token(jwtToken)
                     .userId(user.get().getId())
                     .email(user.get().getEmail())
+                    .firstName(user.get().getFirstName())
+                    .lastName(user.get().getLastName())
                     .build();
         }
 

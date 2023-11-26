@@ -38,7 +38,6 @@ public class PatientProfileImplementaion implements PatientProfileService{
     public PatientProfile saveProfile(PatientProfile patientProfile) {
         return patientProfileRepository.save(patientProfile);
     }
-
     @Override
     public PatientProfile createPatientProfile(User user) {
         PatientProfile patientProfile = new PatientProfile();

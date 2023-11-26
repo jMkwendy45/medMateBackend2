@@ -9,5 +9,7 @@ public class AuthenticationResponse {
     private String token;
     private Long userId;
     private String email;
+    private String firstName;
+    private String lastName;
 }
 

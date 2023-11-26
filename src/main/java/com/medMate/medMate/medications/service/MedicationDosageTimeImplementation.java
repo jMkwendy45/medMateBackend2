@@ -27,7 +27,6 @@ public class MedicationDosageTimeImplementation implements MedicationDosageTimeS
             medicationDosageTimes.add(medicationDosageTime);
             System.out.println("i loop");
         }
-
         return medicationDosageTimes;
     }
 
