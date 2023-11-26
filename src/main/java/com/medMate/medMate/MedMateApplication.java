@@ -1,5 +1,7 @@
 package com.medMate.medMate;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class MedMateApplication {
@@ -32,6 +35,12 @@ public class MedMateApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
+	}
+	@Bean
+	public OpenAPI customOpenAPI() {
+		Server server = new Server();
+		server.setUrl("https://medmatebackend2-production.up.railway.app/");
+		return new OpenAPI().servers(List.of(server));
 	}
 
 }
