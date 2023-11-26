@@ -19,8 +19,6 @@ public class PatientProfile {
     @OneToOne
     private User user;
     @OneToMany
-    List<MedicationSchedule>medicationSchedules;
-    @OneToMany
     List<HealthPractisonerProfile>healthPractisoner;
 }
    

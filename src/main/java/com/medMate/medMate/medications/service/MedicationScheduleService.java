@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface MedicationScheduleService {
     List<MedicationSchedule>usersSchedules(Long userId);
-    MedicationSchedule takeMedication(Long userId,Long medicationId);
+    List<MedicationSchedule>getAllSchedules();
+
+    MedicationSchedule takeMedication(Long userId,Long scheduleId, Long dosageId);
 
 
 

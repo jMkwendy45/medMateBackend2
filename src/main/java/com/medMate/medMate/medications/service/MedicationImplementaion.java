@@ -31,7 +31,9 @@ public class MedicationImplementaion  implements MedicationService{
     private final MedicationDosageTimeService medicationDosageTimeService;
     @Override
     public MedicationSchedule addMedications(Long medicationId,MedicationRequest medicationRequest,Long userId) {
+
         Medication foundMedication = findMedication(medicationId);
+        System.out.println(" first I got here"+ userId+ "  "+ medicationId);
         PatientProfile foundPatientProfile = patientProfileService.findPatientProfileByUserId(userId);
         MedicationSchedule medicationSchedule = new MedicationSchedule();
         medicationSchedule.setFrequency(medicationRequest.getMedicationFrequency());
@@ -39,10 +41,14 @@ public class MedicationImplementaion  implements MedicationService{
         medicationSchedule.setEndDate(medicationRequest.getEndDate());
         medicationSchedule.setMedication(foundMedication);
         medicationSchedule.setDosageTimes( medicationDosageTimeService.createMedicationDosageTime(medicationRequest.getDosageTimes()));
+       medicationSchedule.setUserId(userId);
         medicationScheduleRepository.save(medicationSchedule);
-       foundPatientProfile.setMedications(addMedication(foundMedication, foundPatientProfile));
-       foundPatientProfile.setMedicationSchedules(addSchedule(medicationSchedule, foundPatientProfile));
-       patientProfileService.saveProfile(foundPatientProfile);
+        System.out.println(" first I got here"+ userId+ "  "+ medicationId);
+        addMedication(foundMedication, foundPatientProfile);
+
+
+
+        System.out.println("I got here"+ userId+ "  "+ medicationId);
         System.out.println(foundMedication);
         return  medicationSchedule;
 
@@ -54,23 +60,12 @@ public class MedicationImplementaion  implements MedicationService{
                 throw new NotFoundException("you have added this medication already");
             }
         }
+        patientProfile.getMedications().add(medication);
         medications.add(medication);
 
-        return medications;
+        return patientProfile.getMedications();
     }
-    private List<MedicationSchedule> addSchedule(MedicationSchedule medicationSchedule, PatientProfile patientProfile){
-        List<MedicationSchedule> schedules = patientProfile.getMedicationSchedules();
-        for(int index = 0; index <schedules.size(); index++){
-            if (Objects.equals(schedules.get(index).getId(), medicationSchedule.getId())){
-                throw new NotFoundException("you have added this medication already");
-            }
-            else {
-                schedules.add(medicationSchedule);
 
-            }
-        }
-        return schedules;
-    }
     @Override
     public Medication createMedication(CreateMedicationRequest medicationRequest) {
         Medication medication = new Medication();
@@ -85,6 +80,7 @@ public class MedicationImplementaion  implements MedicationService{
     }
     @Override
     public Medication findMedication(Long id) {
+        System.out.println("whats up");
       Medication foundMedication =  medicationRepository.findById(id)
               .orElseThrow(()-> new NotFoundException(MEDICATION_NOT_FOUND.name()));
       return foundMedication;

@@ -35,6 +35,7 @@ public class MedicationController {
                         LocalDateTime.now(), response)
                 ,HttpStatus.CREATED);
     }
+
     @PostMapping("/addMedication/{medicationId}/{patientId}/")
     public ResponseEntity<MedicationSchedule> addMedication(
              @PathVariable Long medicationId,
@@ -53,11 +54,7 @@ public class MedicationController {
             return new ResponseEntity<>(medications, HttpStatus.OK);
         }
 
-    @GetMapping("schedule/{userId}")
-    public ResponseEntity<List<MedicationSchedule>> getAllUserMedication(@PathVariable Long userId) {
-        List<MedicationSchedule> medications = medicationScheduleService.usersSchedules(userId);
-        return new ResponseEntity<>(medications, HttpStatus.OK);
-    }
+
         @GetMapping("/{medicationId}")
         public ResponseEntity<Medication> getMedicationById(@PathVariable Long medicationId) {
             try {
@@ -69,6 +66,17 @@ public class MedicationController {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+    @GetMapping("/user/")
+    public ResponseEntity<List<Medication>> getAUsersMedication(@RequestParam Long userId) {
+        try {
+            List<Medication> medication = medicationService.getMedicationByUserId(userId);
+            return new ResponseEntity<>(medication, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     }
 
 

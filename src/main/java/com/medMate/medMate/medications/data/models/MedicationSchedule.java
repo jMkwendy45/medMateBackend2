@@ -33,5 +33,6 @@ public class MedicationSchedule {
     @Column(name = "dosage_time")
     @OneToMany()
     private List<MedicationDosageTime> dosageTimes;
+    private Long userId;
 
 }
