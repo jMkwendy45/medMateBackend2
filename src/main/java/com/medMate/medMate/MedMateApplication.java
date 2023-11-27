@@ -25,7 +25,7 @@ public class MedMateApplication {
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(Arrays.asList("https://medmatebackend2-production.up.railway.app/", "https://medmatebackend2-production.up.railway.app/**",  "http://localhost:3001/**",   "http://localhost:3000/**","http://localhost:3000/" ,"http://localhost:3000"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("https://medmatebackend2-production.up.railway.app/", "https://medmatebackend2-production.up.railway.app/**",  "https://med-mate.netlify.app/**",   "https://med-mate.netlify.app/**","https://med-mate.netlify.app/" ,"https://med-mate.netlify.app/"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
