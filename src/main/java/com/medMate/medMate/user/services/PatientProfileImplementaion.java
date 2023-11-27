@@ -10,34 +10,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.medMate.medMate.medications.medicationexception.ExceptionMessage.PATIENT_NOT_FOUND;
-
 @RequiredArgsConstructor
 @Service
 public class PatientProfileImplementaion implements PatientProfileService{
     private final PatientProfileRepository patientProfileRepository;
     private final UserRepository userRepository;
 
+
+
     @Override
     public PatientProfile findPatientProfileById(Long id) {
-
-        PatientProfile foundPatient=patientProfileRepository.findById(id)
-                .orElseThrow(()-> new NotFoundException(PATIENT_NOT_FOUND.name()));
-        return  foundPatient;
+        return patientProfileRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Patient not found with id: " + id));
     }
 
     @Override
     public PatientProfile findPatientProfileByUserId(Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        return patientProfileRepository.findPatientProfileByUser(user.get())
-                .orElseThrow(()-> new NotFoundException(PATIENT_NOT_FOUND.name()));
 
+        if (user.isPresent()) {
+            return patientProfileRepository.findPatientProfileByUser(user.get())
+                    .orElseThrow(() -> new NotFoundException("Patient not found with userId: " + userId));
+        } else {
+            throw new NotFoundException("User not found with id: " + userId);
+        }
     }
 
     @Override
     public PatientProfile saveProfile(PatientProfile patientProfile) {
         return patientProfileRepository.save(patientProfile);
     }
+
     @Override
     public PatientProfile createPatientProfile(User user) {
         PatientProfile patientProfile = new PatientProfile();
@@ -46,5 +49,47 @@ public class PatientProfileImplementaion implements PatientProfileService{
         patientProfile.setHealthPractisoner(null);
         return patientProfileRepository.save(patientProfile);
     }
+
+    @Override
+    public PatientProfile addDoctorToProfile(Long patientProfileId, String emailAdress) {
+        PatientProfile patientProfile = findPatientProfileById(patientProfileId);
+        User healthPractisoner = userRepository.findByEmail(emailAdress)
+                .orElseThrow(() -> new NotFoundException("Doctor not found with email: " + emailAdress));
+              patientProfile.setDoctorId(healthPractisoner.getId());
+
+        return patientProfileRepository.save(patientProfile);
+    }
+
+
+
+
+//    @Override
+//    public PatientProfile findPatientProfileById(Long id) {
+//
+//        PatientProfile foundPatient=patientProfileRepository.findById(id)
+//                .orElseThrow(()-> new NotFoundException(PATIENT_NOT_FOUND.name()));
+//        return  foundPatient;
+//    }
+//
+//    @Override
+//    public PatientProfile findPatientProfileByUserId(Long userId) {
+//        Optional<User> user = userRepository.findById(userId);
+//        return patientProfileRepository.findPatientProfileByUser(user.get())
+//                .orElseThrow(()-> new NotFoundException(PATIENT_NOT_FOUND.name()));
+//
+//    }
+//
+//    @Override
+//    public PatientProfile saveProfile(PatientProfile patientProfile) {
+//        return patientProfileRepository.save(patientProfile);
+//    }
+//    @Override
+//    public PatientProfile createPatientProfile(User user) {
+//        PatientProfile patientProfile = new PatientProfile();
+//        patientProfile.setMedications(null);
+//        patientProfile.setUser(user);
+//        patientProfile.setHealthPractisoner(null);
+//        return patientProfileRepository.save(patientProfile);
+//    }
 
 }

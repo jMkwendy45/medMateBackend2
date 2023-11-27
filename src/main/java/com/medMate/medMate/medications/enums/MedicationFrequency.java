@@ -5,7 +5,8 @@ public enum MedicationFrequency {
     TWICE_A_DAY,
     THREE_TIMES_A_DAY,
     MORE_THAN_THREE_TIMES_A_DAY,
-    ONLY_AS_NEEDED;
+    ONLY_AS_NEEDED,
+    OTHERS
 
 
 }

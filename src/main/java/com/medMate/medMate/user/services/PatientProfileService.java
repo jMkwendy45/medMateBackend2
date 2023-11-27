@@ -11,4 +11,9 @@ public interface PatientProfileService {
     PatientProfile createPatientProfile(User user);
 
 
+    PatientProfile addDoctorToProfile(Long patientProfileId, String emailAdress);
+
+
+
+
 }

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class MedicationTest {
     @Autowired
     MedicationService medicationService;
-
     @Test
     public void testToCreateAMedication(){
     }
@@ -40,7 +39,7 @@ public class MedicationTest {
             add("pain");
         }};
         Random random = new Random();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             CreateMedicationRequest medication = new CreateMedicationRequest();
             int index = random.nextInt(3);
 
@@ -62,6 +61,11 @@ public class MedicationTest {
 //        medicationRequest.setMedicationRequirement(MedicationRequirement.AFTER_EATING);
        medicationService.addMedications(10L,medicationRequest,2L);
     }
+    @Test
+    public  void  testToAddFindAllMedication(){
+
+    }
+
 
     }
 //

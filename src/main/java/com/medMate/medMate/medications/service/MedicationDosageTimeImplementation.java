@@ -17,7 +17,7 @@ public class MedicationDosageTimeImplementation implements MedicationDosageTimeS
     public List<MedicationDosageTime> createMedicationDosageTime(List<MedicationDosageRequest> medicationDosageRequest) {
         List<MedicationDosageTime> medicationDosageTimes = new ArrayList<>();
         System.out.println(medicationDosageRequest.size());
-        for (int i = 0; i <medicationDosageRequest.size(); i++) {
+        for(int i = 0; i <medicationDosageRequest.size(); i++) {
             MedicationDosageTime medicationDosageTime = new MedicationDosageTime();
             medicationDosageTime.setMedicationRequirement(medicationDosageRequest.get(i).getMedicationRequirement());
             medicationDosageTime.setDosageTime(medicationDosageRequest.get(i).getDosageTime());

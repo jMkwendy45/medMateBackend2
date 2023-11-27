@@ -20,5 +20,6 @@ public class PatientProfile {
     private User user;
     @OneToMany
     List<HealthPractisonerProfile>healthPractisoner;
+    private Long doctorId;
 }
    
